@@ -25,6 +25,7 @@ import ru.astondevs.attractionservice.model.Settlement;
 import javax.sql.DataSource;
 
 import static org.hibernate.cfg.JdbcSettings.JAKARTA_JTA_DATASOURCE;
+import static org.hibernate.cfg.JdbcSettings.SHOW_SQL;
 import static org.hibernate.cfg.SchemaToolingSettings.HBM2DDL_AUTO;
 
 
@@ -51,7 +52,7 @@ public class ModelConfig {
     @Bean
     SpringLiquibase liquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setChangeLog("classpath:liquibase/master.sql");
+        liquibase.setChangeLog("classpath:liquibase/db.changelog-master.yml");
         liquibase.setDataSource(dataSource);
         return liquibase;
     }
@@ -62,6 +63,7 @@ public class ModelConfig {
         StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySetting(JAKARTA_JTA_DATASOURCE, dataSource)
                 .applySetting(HBM2DDL_AUTO, env.getProperty("jpa.hibernate.ddl-auto"))
+            .applySetting(SHOW_SQL, "true")
                 .build();
         return new MetadataSources(serviceRegistry)
                 .addAnnotatedClass(Settlement.class)
