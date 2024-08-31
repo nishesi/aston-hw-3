@@ -41,7 +41,10 @@ public class Attraction {
     @JoinColumn(name = "settlement_id")
     private Settlement settlement;
 
-    @ManyToMany(mappedBy = "attractions")
+    @ManyToMany
+    @JoinTable(name = "service_attractions",
+               joinColumns = @JoinColumn(name = "service_id"),
+               inverseJoinColumns = @JoinColumn(name = "attraction_id"))
     private Set<Service> services;
 
     public enum Type {

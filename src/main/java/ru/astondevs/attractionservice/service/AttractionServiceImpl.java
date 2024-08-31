@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.transaction.annotation.Transactional;
 import ru.astondevs.attractionservice.dao.AttractionRepository;
 import ru.astondevs.attractionservice.dao.ServiceRepository;
@@ -34,7 +35,6 @@ public class AttractionServiceImpl implements AttractionService {
     private final ServiceRepository serviceRepository;
     private final AttractionMapper attractionMapper;
 
-    @Transactional
     @Override
     public AttractionDto createAttraction(NewAttractionForm form) {
         log.debug("start createAttraction() with: {} ", form);
@@ -47,7 +47,7 @@ public class AttractionServiceImpl implements AttractionService {
         Attraction attraction = attractionMapper.toAttraction(form, settlement, services);
         try {
             attraction = attractionRepository.save(attraction);
-        } catch (ConstraintViolationException e) {
+        } catch (ConstraintViolationException | JpaSystemException e) {
             log.debug("finish createAttraction() with exception", e);
             throw new ServiceViolationException(400, "settlement or services not exist");
         }

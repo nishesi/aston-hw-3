@@ -29,9 +29,6 @@ public class Service {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany
-    @JoinTable(name = "service_attractions",
-            joinColumns = @JoinColumn(name = "service_id"),
-            inverseJoinColumns = @JoinColumn(name = "attraction_id"))
+    @ManyToMany(mappedBy = "services")
     private Set<Attraction> attractions;
 }
