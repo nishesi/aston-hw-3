@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.util.Set;
 
+/**
+ * Сущность, представляющая собой услугу.
+ */
 @Entity
 @Table(name = "service")
 @Getter

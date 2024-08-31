@@ -6,6 +6,9 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.Set;
 
+/**
+ * Сущность, представляющая собой достопримечательность.
+ */
 @Entity
 @Table(name = "attraction")
 @Getter

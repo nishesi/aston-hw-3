@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.util.Set;
 
+/**
+ * Сущность, представляющая собой населенный пункт.
+ */
 @Entity
 @Table(name = "settlement")
 @Getter
