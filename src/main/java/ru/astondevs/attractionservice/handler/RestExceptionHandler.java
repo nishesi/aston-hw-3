@@ -6,6 +6,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import ru.astondevs.attractionservice.dto.ExceptionDto;
 import ru.astondevs.attractionservice.dto.ValidationErrorDto;
 import ru.astondevs.attractionservice.exception.ServiceViolationException;
@@ -35,6 +36,12 @@ public class RestExceptionHandler {
                         : new ValidationErrorDto(error.getObjectName(), error.getDefaultMessage(), null))
                 .toList();
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<ExceptionDto> handle(NoHandlerFoundException ex) {
+        log.debug("exception handled: ", ex);
+        return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(Exception.class)

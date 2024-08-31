@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  webapp:
+    build:
+      dockerfile: Dockerfile
+    image: aston-hw-3-webapp
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:16.1-alpine
+    container_name: postgres
+    user: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: pg_isready -d postgres
+      interval: 2s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
