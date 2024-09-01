@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/schema/1.0/create-initial-schema.sql

@@ -1,0 +1,5 @@
+datasource.url=
+datasource.username=
+datasource.password=
+datasource.driver-class-name=
+jpa.hibernate.ddl-auto=
